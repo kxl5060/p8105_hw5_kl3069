@@ -122,6 +122,8 @@ results_df %>%
 
 # Problem 2
 
+## 2-1) Create a tidy dataframe
+
 ```{r, eval = FALSE, error = TRUE}
 data_1 = read_csv("arm_data/con_01.csv")
 
