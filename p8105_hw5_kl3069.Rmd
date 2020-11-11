@@ -165,5 +165,52 @@ tidy_arm_df %>%
 
 * **Some comments on plot**: Initially, subjects in both the control and experimental arm seem to show not much of difference. However, through the weeks from 1 to 8, it seems that subjects in the control arm either stays consistent or likely to decreases somewhat over time, whereas, subjects in the experimental arm seems to show a increasing trend over time.
 
+# Problem 3
+
+## 3-1) T-test function (set n = 30, sigma = 5)
+
+```{r}
+t_test = function(sample_size = 30, mu, sigma = 5) {
+  
+  sim_data = 
+    tibble(
+      x = rnorm(n = sample_size, mean = mu, sd = sigma)
+      )
+  
+  sim_data %>% 
+    t.test() %>% 
+    broom::tidy()
+  
+  }
+```
+
+## 3-2) Set mu = 0 and generate 5000 datasets
+
+```{r}
+sim_results =
+  rerun(5000, t_test(mu = 0)) %>% 
+  bind_rows()
+
+sim_results %>% 
+  select(estimate, p.value)
+```
+
+## 3-3) Repeat mu = 1 to 6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
