@@ -37,7 +37,7 @@ homicide_raw =
 homicide_raw
 ```
 
-* Some comments on raw data: This dataset is collected by The Washington Post by gathering data on more than 52,000 criminal homicides over the past decade in 50 of the largest American cities. The dataset is comprised of **`r homicide_raw %>% nrow()`** observations (rows) and **`r homicide_raw %>% ncol()`** columns. The variables include *`r homicide_raw %>% names()`*. Some of the important variables in this dataset are location of the killing, whether an arrest was made and, basic demographic information (e.g., sex, age, race) about each victim.
+* **Some comments on raw data**: This dataset is collected by The Washington Post by gathering data on more than 52,000 criminal homicides over the past decade in 50 of the largest American cities. The dataset is comprised of **`r homicide_raw %>% nrow()`** observations (rows) and **`r homicide_raw %>% ncol()`** columns. The variables include *`r homicide_raw %>% names()`*. Some of the important variables in this dataset are location of the killing, whether an arrest was made and, basic demographic information (e.g., sex, age, race) about each victim.
 
 ## 1-2) The number of homicides and unsolved homicides
 
@@ -163,7 +163,7 @@ tidy_arm_df %>%
                                   lineheight=1.2))
 ```
 
-* Some comments on plot: 
+* **Some comments on plot**: Initially, subjects in both the control and experimental arm seem to show not much of difference. However, through the weeks from 1 to 8, it seems that subjects in the control arm either stays consistent or likely to decreases somewhat over time, whereas, subjects in the experimental arm seems to show a increasing trend over time.
 
 
 
