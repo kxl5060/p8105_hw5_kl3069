@@ -124,19 +124,29 @@ results_df %>%
 
 ## 2-1) Create a tidy dataframe
 
-```{r, eval = FALSE, error = TRUE}
-data_1 = read_csv("arm_data/con_01.csv")
+```{r}
+tidy_arm_df =
+  tibble(path = list.files("arm_data")) %>%
+  mutate(data = map(.x = path, ~ read_csv(str_c("arm_data/", .x)))) %>% 
+  unnest() %>% 
+  separate(path, into = c("arm", "subject_id"), sep = "_") %>% 
+  mutate(
+    subject_id = str_replace(subject_id,".csv", ""),
+    subject_id = trimws(subject_id),
+    arm = trimws(arm)
+    ) %>% 
+  pivot_longer(
+    week_1:week_8,
+    names_to = "week",
+    values_to = "observation",
+    names_prefix = "week_"
+    ) %>% 
+  mutate(week = as.numeric(week))
 
-path_df = 
-  tibble(
-    path = list.files("lda_data")
-  ) %>% 
-  mutate(path = str_c("lda_data", path),
-         data = map(...)
-         )
-
-read_csv(path_df$path[[1]])
+tidy_arm_df
 ```
+
+## 2-1) Make a spaghetti plot
 
 
 
