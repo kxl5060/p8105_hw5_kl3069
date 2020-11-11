@@ -148,8 +148,22 @@ tidy_arm_df
 
 ## 2-1) Make a spaghetti plot
 
+```{r}
+tidy_arm_df %>% 
+  ggplot(aes(x = week, y = observation, color = arm)) +
+  geom_path(aes(group = subject_id)) +
+  labs(
+      title = "Observations on Each Subject Over Time",
+      x = "Week",
+      y = "Observation",
+      caption = "Datasource: Arm Data",
+      color = "Arm") +
+  theme(plot.title = element_text(face="bold",
+                                  hjust=0.5,
+                                  lineheight=1.2))
+```
 
-
+* Some comments on plot: 
 
 
 
