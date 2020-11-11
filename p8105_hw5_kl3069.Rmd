@@ -236,9 +236,39 @@ multi_sim_results %>%
 
 ## 3-5) Association between average estimate of μ^ and the true value of μ
 
+```{r}
+total_samples = 
+  multi_sim_results %>% 
+    select(multi_mu, estimate, p.value) %>% 
+    group_by(multi_mu) %>%
+    summarize(total = mean(estimate, na.rm = TRUE))
 
+null_rejected_samples = 
+  multi_sim_results %>% 
+  select(multi_mu, estimate, p.value) %>% 
+  filter(p.value <= 0.05) %>% 
+  group_by(multi_mu) %>% 
+  summarize(null_rejected = mean(estimate, na.rm = TRUE))
 
-
+left_join(total_samples, null_rejected_samples, by = "multi_mu") %>% 
+  pivot_longer(
+    total:null_rejected,
+    names_to = "sample",
+    values_to = "mu_avg_estimate"
+  ) %>% 
+  mutate(multi_mu = str_c("μ = ", multi_mu)) %>% 
+  ggplot(aes(x = multi_mu, y = mu_avg_estimate, color = sample)) +
+  geom_line(aes(group = sample)) +
+  labs(
+      title = "Association between average estimate and true value",
+      x = "True value of μ",
+      y = "Average Estimate",
+      caption = "Datasource: Created Simulation",
+      color = "Sample: ") +
+  theme(plot.title = element_text(face="bold",
+                                  hjust=0.5,
+                                  lineheight=1.2))
+```
 
 
 
