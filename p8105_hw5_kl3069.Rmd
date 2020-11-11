@@ -197,6 +197,19 @@ sim_results %>%
 
 ## 3-3) Repeat mu = 1 to 6
 
+```{r}
+multi_sim_results = 
+  tibble(multi_mu = c(1, 2, 3, 4, 5, 6)) %>% 
+  mutate(
+    output = map(.x = multi_mu, ~rerun(5000, t_test(mu = .x))),
+    estimate = map(output, bind_rows)
+  ) %>%
+  select(-output) %>% 
+  unnest()
+
+multi_sim_results %>% 
+  select(multi_mu, estimate, p.value)
+```
 
 
 
