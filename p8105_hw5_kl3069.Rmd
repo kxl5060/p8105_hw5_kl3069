@@ -157,7 +157,7 @@ tidy_arm_df %>%
       x = "Week",
       y = "Observation",
       caption = "Datasource: Arm Data",
-      color = "Arm") +
+      color = "Arm: ") +
   theme(plot.title = element_text(face="bold",
                                   hjust=0.5,
                                   lineheight=1.2))
@@ -199,7 +199,7 @@ sim_results %>%
 
 ```{r}
 multi_sim_results = 
-  tibble(multi_mu = c(1, 2, 3, 4, 5, 6)) %>% 
+  tibble(multi_mu = c(0, 1, 2, 3, 4, 5, 6)) %>% 
   mutate(
     output = map(.x = multi_mu, ~rerun(5000, t_test(mu = .x))),
     estimate = map(output, bind_rows)
@@ -218,21 +218,23 @@ multi_sim_results %>%
   select(multi_mu, estimate, p.value) %>% 
   group_by(multi_mu) %>% 
   summarize(power_test = sum(p.value <= 0.05) / n()) %>% 
-  mutate(multi_mu = str_c("mu = ", multi_mu)) %>% 
+  mutate(multi_mu = str_c("μ = ", multi_mu)) %>% 
   ggplot(aes(x = multi_mu, y = power_test, fill = multi_mu)) +
   geom_bar(stat = 'identity') +
   labs(
       title = "Association Between Effect Size and Power",
-      x = "True value of mu",
+      x = "True value of μ",
       y = "Power of the test",
       caption = "Datasource: Created Simulation",
-      fill = "Value of mu") +
+      fill = "Value of μ: ") +
   theme(plot.title = element_text(face="bold",
                                   hjust=0.5,
                                   lineheight=1.2))
 ```
 
-* **Some comments on plot**: As can be seen from the above plot, as the true value of mu increases from 1 to 6, the proportion of times the null was rejected **(p-value less than 0.05)** or the power of the test increases. Thus, there is a positive relationship between effect size and power. 
+* **Some comments on plot**: As can be seen from the above plot, as the true value of mu increases from 0 to 6, the proportion of times the null was rejected **(p-value less than 0.05)** or the power of the test increases. Thus, there is a positive relationship between effect size and power. 
+
+## 3-5) Association between average estimate of μ^ and the true value of μ
 
 
 
