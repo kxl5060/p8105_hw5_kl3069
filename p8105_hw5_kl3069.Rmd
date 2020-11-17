@@ -232,16 +232,16 @@ multi_sim_results %>%
                                   lineheight=1.2))
 ```
 
-* **Some comments on plot**: As can be seen from the above plot, as the true value of mu increases from 0 to 6, the proportion of times the null was rejected **(p-value less than 0.05)** or the power of the test increases. Thus, there is a positive relationship between effect size and power. 
+* **Some comments on plot**: As can be seen from the above plot, as the true value of mu (μ) increases from 0 to 6, the proportion of times the null was rejected **(p-value less than or equal to 0.05)** or the power of the test increases. Thus, there is a positive relationship between effect size and power. 
 
 ## 3-5) Association between average estimate of μ^ and the true value of μ
 
 ```{r}
 total_samples = 
   multi_sim_results %>% 
-    select(multi_mu, estimate, p.value) %>% 
-    group_by(multi_mu) %>%
-    summarize(total = mean(estimate, na.rm = TRUE))
+  select(multi_mu, estimate, p.value) %>% 
+  group_by(multi_mu) %>%
+  summarize(total = mean(estimate, na.rm = TRUE))
 
 null_rejected_samples = 
   multi_sim_results %>% 
@@ -262,18 +262,13 @@ left_join(total_samples, null_rejected_samples, by = "multi_mu") %>%
   labs(
       title = "Association between average estimate and true value",
       x = "True value of μ",
-      y = "Average Estimate",
+      y = "Average Estimate of μ^",
       caption = "Datasource: Created Simulation",
       color = "Sample: ") +
-  theme(plot.title = element_text(face="bold",
-                                  hjust=0.5,
-                                  lineheight=1.2))
+  theme(plot.title = element_text(face = "bold",
+                                  hjust = 0.5,
+                                  lineheight = 1.2))
 ```
 
-
-
-
-
-
-
+* **Some comments on plot**: As can be seen from the above plot, in general, as the true value of μ increases from 0 to 6, the average estimate of μ^ also increases for both total samples and samples for which the null was rejected. For total samples, the average estimate of μ^ is almost identical (or equal) to true value of μ. However, in the case of samples for which the null was rejected, we can see a slight deviation of average estimate of μ^ when the true value of μ is from 1 to 3. As we have seen from the above plot showing the proportion of times the null was rejected (the power of the test) for different true value of μ, such deviation could be resulted by lower number of times the null was rejected out of 5000 total samples when the true value of μ is from 1 to 3, causing more variability for average estimate of μ^, compared to when true value of μ is from 4 to 6. 
 
